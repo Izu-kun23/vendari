@@ -7,12 +7,21 @@ import {
   Easing,
   ActivityIndicator,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import type { RootStackParamList } from '../types'; // or wherever you define it
 
 const vendariLogo = require('../../assets/vendari_logo.png');
 
+// Type navigation prop for this screen
+type StartScreenProp = NativeStackNavigationProp<RootStackParamList, 'Start'>;
+
 const Start = () => {
-  const logoAnim = useRef(new Animated.Value(0)).current; // for translateY
-  const textOpacity = useRef(new Animated.Value(0)).current; // for text fade-in
+  const navigation = useNavigation<StartScreenProp>();
+
+  const logoAnim = useRef(new Animated.Value(0)).current; // translateY
+  const textOpacity = useRef(new Animated.Value(0)).current; // fade-in text
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
@@ -30,13 +39,16 @@ const Start = () => {
           useNativeDriver: true,
         }),
       ]).start(() => {
-        // Show spinner after animations complete
         setShowSpinner(true);
+
+        setTimeout(() => {
+          navigation.navigate('Welcome');
+        }, 3000);
       });
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [logoAnim, textOpacity, navigation]);
 
   return (
     <View style={styles.container}>
