@@ -4,7 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Start from '../screens/Start';
 import Welcome from '../screens/Welcome';
+import Login from '../screens/auth/Login';
 import Home from '../screens/Home';
+import Register from '../screens/auth/Register';
 
 import type { RootStackParamList } from '../types'; // same place as before
 
@@ -22,6 +24,16 @@ export default function Navigator() {
         <Stack.Screen
           name="Welcome"
           component={Welcome}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
           options={{ headerShown: false }}
         />
          <Stack.Screen

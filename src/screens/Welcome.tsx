@@ -44,12 +44,13 @@ const Welcome = ({ navigation }: any) => {
     if (currentIndex < slides.length - 1) {
       flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      navigation.navigate('Home');
+      navigation.navigate('Login'); // Navigate to Login screen when the last slide is reached
     }
   };
 
   const handleSkip = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Login'); // Skip to Login screen
+    flatListRef.current?.scrollToIndex({ index: slides.length - 1 });
   };
 
   return (
