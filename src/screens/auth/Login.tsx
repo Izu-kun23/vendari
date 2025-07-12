@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,16 @@ import {
 } from 'react-native';
 
 const Login = ({ navigation }: any) => {
+  const [password, setPassword] = useState('12345678');
+  const [showPassword, setShowPassword] = useState(false);
+  const [email] = useState('izu@gmail.com'); // hardcoded email
+
+  const handleLogin = () => {
+    // Optional: Add validation or Firebase logic here
+    // For now, simply navigate
+    navigation.navigate('Home');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.heading}>Hello Again!</Text>
@@ -22,20 +32,35 @@ const Login = ({ navigation }: any) => {
             keyboardType="email-address"
             style={styles.input}
             placeholderTextColor="#aaa"
+            autoCapitalize="none"
+            value={email}
+            editable={false} // make it read-only
           />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Password</Text>
-          <TextInput
-            placeholder="Enter your password"
-            secureTextEntry
-            style={styles.input}
-            placeholderTextColor="#aaa"
-          />
+          <View style={styles.passwordContainer}>
+            <TextInput
+              placeholder="Enter your password"
+              secureTextEntry={!showPassword}
+              style={[styles.input, { flex: 1 }]}
+              placeholderTextColor="#aaa"
+              value={password}
+              onChangeText={setPassword}
+              autoCapitalize="none"
+            />
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.showHideButton}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.showHideText}>{showPassword ? 'Hide' : 'Show'}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
 
@@ -104,6 +129,20 @@ const styles = StyleSheet.create({
     color: '#000',
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  showHideButton: {
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  showHideText: {
+    color: 'green',
+    fontWeight: '600',
+    fontSize: 16,
   },
   loginButton: {
     backgroundColor: 'green',

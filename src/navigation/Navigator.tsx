@@ -7,6 +7,7 @@ import Welcome from '../screens/Welcome';
 import Login from '../screens/auth/Login';
 import Home from '../screens/Home';
 import Register from '../screens/auth/Register';
+import BottomTabs from './BottomTabs';
 
 import type { RootStackParamList } from '../types'; // same place as before
 
@@ -38,7 +39,7 @@ export default function Navigator() {
         />
          <Stack.Screen
           name="Home"
-          component={Home}
+          component={BottomTabs}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
